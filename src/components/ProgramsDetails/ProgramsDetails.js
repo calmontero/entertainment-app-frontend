@@ -15,7 +15,7 @@ function ProgramsDetails() {
         })
         .catch(err => console.error(err))
     ),[]);
-
+        
     return (
         <div className="program-details">
             <div class="flex-child magenta">
@@ -31,6 +31,18 @@ function ProgramsDetails() {
             <div class="flex-child1 green">
                 <h1>{program.title}</h1>
                 <span>{program.year}</span> <span>R</span> <span>{program.length} MIN</span>
+                <br />
+                <p>{program.description}</p>
+                <p>Director: {program.director}</p>
+                <p>Cast:</p>
+                <p>Category: {} </p>
+                <p>Genre:</p>
+                <p>IMDB Link:</p>
+            </div>
+
+            <div className="reviews-container">
+                <h1>Reviews</h1>
+
             </div>
         </div>
     )
