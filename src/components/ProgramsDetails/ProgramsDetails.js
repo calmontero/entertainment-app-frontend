@@ -1,24 +1,36 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from 'react-router-dom';
+import ReviewsCard from "../ReviewsCard/ReviewsCard";
 import './ProgramsDetails.css'
 
 function ProgramsDetails() {
     const [program, setProgram] = useState([]);
+    const [loading, setLoading] = useState(false);
     const params = useParams();
     const id = params.id;
 
-    useEffect(() => (
+    useEffect(() => {
+        setLoading(true);
         fetch(`/programs/${id}`)
-        .then((response) => response.json())
-        .then((programData) => {
-            setProgram(programData)
-        })
-        .catch(err => console.error(err))
-    ),[]);
+          .then((res) => res.json())
+          .then((programData) => {
+            setProgram(programData);
+          })
+          .catch((err) => {
+            console.log(err);
+          })
+          .finally(() => {
+            setLoading(false);
+          });
+    }, []);
+    //console.log(program.reviews);
+    if (loading) {
+        return <p>Data is loading...</p>;
+    }
         
     return (
         <div className="program-details">
-            <div class="flex-child magenta">
+            <div className="flex-child magenta">
                 <img
                     className="program-img"
                     src={program.image_url}
@@ -28,9 +40,11 @@ function ProgramsDetails() {
                 />
             </div>
   
-            <div class="flex-child1 green">
+            <div className="flex-child1 green">
                 <h1>{program.title}</h1>
-                <span>{program.year}</span> <span>R</span> <span>{program.length} MIN</span>
+                <span>{program.year}</span> <span>{program.length} MIN</span>
+                <br />
+                <span>R</span>
                 <br />
                 <p>{program.description}</p>
                 <p>Director: {program.director}</p>
@@ -42,7 +56,7 @@ function ProgramsDetails() {
 
             <div className="reviews-container">
                 <h1>Reviews</h1>
-
+                <ReviewsCard reviews={program.reviews} />
             </div>
         </div>
     )

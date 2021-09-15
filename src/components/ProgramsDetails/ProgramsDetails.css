@@ -17,9 +17,9 @@
 } 
 
 div > span {
-    display: block;
+    
     float: left;
-    outline: 2px solid black;
+    
     width: 10%;
     
 }
