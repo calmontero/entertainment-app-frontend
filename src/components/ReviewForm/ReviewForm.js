@@ -11,14 +11,16 @@ const initialState = {
     program_id: ''
 };
 
-function ReviewForm() {
+function ReviewForm({ id , onAddReview }) {
     const[review, setReview] = useState(initialState);
     const [value, setValue] = React.useState(2);
 
     function handleSubmit(e) {
-        e.preventDefault()
-        //review.publisher_id = id;
-        //onAddreview(review)
+        e.preventDefault();
+        review.program_id = id;
+        review.rating = value;
+        console.log(review);
+        onAddReview(review);
         setReview(initialState);
     }
 

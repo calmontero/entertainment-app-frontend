@@ -1,14 +1,23 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
 import ProgramsContainer from './components/ProgramsContainer/ProgramsContainer';
-import NavBar from "./components/NavBar/NavBar";
+import Navigation from "./components/NavigationBar/NavigationBar";
 import ProgramsDetails from "./components/ProgramsDetails/ProgramsDetails";
+import Home from "./components/Home/Home";
+import 'react-bootstrap/dist/react-bootstrap.min.js';
+import ProfilesContainer from "./components/ProfilesContainer/ProfilesContainer";
 
 function App() {
   return (
     <main className="app">
-      <NavBar />
+      <Navigation />
       <Switch>
+        <Route exact path="/">
+          <Home />
+        </Route>
+        <Route exact path="/profiles">
+          <ProfilesContainer />
+        </Route>
         <Route exact path="/programs">
           <ProgramsContainer />
         </Route>

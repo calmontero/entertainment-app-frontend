@@ -23,7 +23,23 @@ function ProgramsDetails() {
             setLoading(false);
           });
     }, []);
-    //console.log(program.reviews);
+
+    function CreateReview(review) {
+        fetch(`/reviews`, {
+            method: "POST",
+            body: JSON.stringify(review),
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+            },
+        })
+        .then((response) => response.json())
+        .then((reviewData) => {
+            const newReview = { ...program, reviews: [...program.reviews, reviewData] };
+            setProgram(newReview);
+        });
+    }
+
     if (loading) {
         return <p>Data is loading...</p>;
     }
@@ -48,7 +64,7 @@ function ProgramsDetails() {
                 <br />
                 <p>{program.description}</p>
                 <p>Director: {program.director}</p>
-                <p>Cast:</p>
+                <p>Cast: {} </p>
                 <p>Category: {} </p>
                 <p>Genre:</p>
                 <p>IMDB Link:</p>
@@ -56,7 +72,7 @@ function ProgramsDetails() {
 
             <div className="reviews-container">
                 <h1>Reviews</h1>
-                <ReviewsCard reviews={program.reviews} />
+                <ReviewsCard reviews={program.reviews} id={id} onAddReview={CreateReview} />
             </div>
         </div>
     )

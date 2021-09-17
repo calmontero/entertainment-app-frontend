@@ -3,6 +3,8 @@ import ProgramsCard from "../ProgramsCard/ProgramsCard";
 
 function ProgramsContainer() {
     const [programs, setPrograms] = useState([]);
+    const profile = localStorage.getItem('Profile');
+    //if (profile ? console.log(profile) : console.log("Null"));
 
     //Get list of movies and tv shows
     useEffect(() => {
@@ -13,7 +15,7 @@ function ProgramsContainer() {
     
       return (
         <div className="programs-container">
-            <h1>Full List of Movies and TV Shows</h1>
+            <h1>{profile ? "Full List of Movies and TV Shows - Profile: " + profile : "Full List of Movies and TV Shows"}</h1>
             {
                 programs.map(p => {
                     return <ProgramsCard

@@ -3,8 +3,8 @@ import Rating from '@material-ui/lab/Rating';
 import Box from '@material-ui/core/Box';
 import ReviewForm from "../ReviewForm/ReviewForm";
 
-function ReviewsCard({ reviews }) {
-    const displayReviews = reviews.map(p => {
+function ReviewsCard({ reviews , id , onAddReview }) {
+    const displayReviews = reviews && reviews.map(p => {
         return <div>
             <p>Username: {p.username}</p>
             <Box component="fieldset" mb={3} borderColor="transparent">
@@ -16,7 +16,7 @@ function ReviewsCard({ reviews }) {
 
     return (
         <div className="reviews-container">
-            <ReviewForm />
+            <ReviewForm id={id} onAddReview={onAddReview} />
             {displayReviews}
         </div>
     )
