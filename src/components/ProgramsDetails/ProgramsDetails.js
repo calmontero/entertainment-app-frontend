@@ -2,6 +2,18 @@ import React, { useState, useEffect } from "react";
 import { useParams } from 'react-router-dom';
 import ReviewsCard from "../ReviewsCard/ReviewsCard";
 import './ProgramsDetails.css'
+import Select from 'react-select';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+const Countries = [
+    { label: "Albania", value: 355 },
+    { label: "Argentina", value: 54 },
+    { label: "Austria", value: 43 },
+    { label: "Cocos Islands", value: 61 },
+    { label: "Kuwait", value: 965 },
+    { label: "Sweden", value: 46 },
+    { label: "Venezuela", value: 58 }
+  ];
 
 function ProgramsDetails() {
     const [program, setProgram] = useState([]);
@@ -9,12 +21,18 @@ function ProgramsDetails() {
     const params = useParams();
     const id = params.id;
 
+    function handleProfile(e) {
+        console.log(e.value);
+    }
+
     useEffect(() => {
         setLoading(true);
         fetch(`/programs/${id}`)
           .then((res) => res.json())
           .then((programData) => {
+
             setProgram(programData);
+
           })
           .catch((err) => {
             console.log(err);
@@ -23,7 +41,7 @@ function ProgramsDetails() {
             setLoading(false);
           });
     }, []);
-
+    
     function CreateReview(review) {
         fetch(`/reviews`, {
             method: "POST",
@@ -46,7 +64,7 @@ function ProgramsDetails() {
         
     return (
         <div className="program-details">
-            <div className="flex-child magenta">
+            <div className="flex-child magenta" key={id} >
                 <img
                     className="program-img"
                     src={program.image_url}
@@ -64,10 +82,21 @@ function ProgramsDetails() {
                 <br />
                 <p>{program.description}</p>
                 <p>Director: {program.director}</p>
-                <p>Cast: {} </p>
+                <p>Cast: {program.cast} </p>
+                
                 <p>Category: {} </p>
-                <p>Genre:</p>
-                <p>IMDB Link:</p>
+                <p>Genre: {} </p>
+                <p>Rating: {} </p>
+                <p>IMDB Link: {program.imdb_url} </p>
+                <p>Add to a Profile:</p>
+               
+                    <div className="col-md-3"></div>
+                        <div className="col-md-6">
+                            <Select options={Countries} onChange={handleProfile} />
+                        </div>
+                    <div className="col-md-4"></div>
+                
+                
             </div>
 
             <div className="reviews-container">

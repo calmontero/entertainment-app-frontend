@@ -15,7 +15,7 @@ function ReviewsCard({ reviews , id , onAddReview }) {
     })
 
     return (
-        <div className="reviews-container">
+        <div className="reviews-container" key={id} >
             <ReviewForm id={id} onAddReview={onAddReview} />
             {displayReviews}
         </div>

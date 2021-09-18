@@ -4,11 +4,9 @@ import ProfilesCard from "../ProfilesCard/ProfilesCard";
 
 function ProfilesContainer() {
     const [profiles, setProfiles] = useState([]);
-    //const [loading, setLoading] = useState(false);
 
     //Get list of profiles
     useEffect(() => {
-        //setLoading(true);
         fetch("/profiles")
           .then((res) => res.json())
           .then((profilesData) => {
@@ -18,7 +16,6 @@ function ProfilesContainer() {
             console.log(err);
           })
           .finally(() => {
-            //setLoading(false);
           });
     }, []);
     

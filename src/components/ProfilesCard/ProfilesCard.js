@@ -4,13 +4,21 @@ import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 
 function ProfilesCard({ profiles, onDeleteProfile }) {
     const { id, name } = profiles;
+    const [isSelected, setSelected] = useState(false);
+    
 
     function handleSelectedClick(e) {
         let target = e.currentTarget;
         target.classList.toggle('selected')
-        localStorage.clear();
-        localStorage.setItem('Profile', name);
-        localStorage.setItem('profile_id', id);
+        
+        if (isSelected) {
+            localStorage.clear();
+        } else {
+            localStorage.clear();
+            localStorage.setItem('Profile', name);
+            localStorage.setItem('profile_id', id);
+        }
+        setSelected(!isSelected);
     }
 
     function handleDeleteClick() {
@@ -33,6 +41,7 @@ function ProfilesCard({ profiles, onDeleteProfile }) {
                 onError={(event) => event.target.style.display = 'none'}
                 style={{borderTopRightRadius: 20, borderBottomRightRadius: 20, borderBottomLeftRadius: 20, borderTopLeftRadius: 20}}
                 onClick={handleSelectedClick}
+                
             />
             <div className="details">
                 <DeleteForeverIcon className="icon" fontSize="large" onClick={handleDeleteClick} />

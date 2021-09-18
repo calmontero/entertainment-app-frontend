@@ -4,26 +4,32 @@ import ProgramsCard from "../ProgramsCard/ProgramsCard";
 function ProgramsContainer() {
     const [programs, setPrograms] = useState([]);
     const profile = localStorage.getItem('Profile');
-    //if (profile ? console.log(profile) : console.log("Null"));
+    const profile_id = localStorage.getItem('profile_id');
 
     //Get list of movies and tv shows
     useEffect(() => {
-        fetch("/programs")
-          .then((response) => response.json())
-          .then((programsData) => setPrograms(programsData));
+        if (!profile) {
+            fetch("/programs")
+            .then((response) => response.json())
+            .then((programsData) => setPrograms(programsData));
+        } else {
+            fetch(`/profiles/${profile_id}`)
+            .then((response) => response.json())
+            .then((programsData) => setPrograms(programsData.programs));
+        }
       }, []);
     
       return (
         <div className="programs-container">
             <h1>{profile ? "Full List of Movies and TV Shows - Profile: " + profile : "Full List of Movies and TV Shows"}</h1>
             {
-                programs.map(p => {
+                programs && programs.length>0 && programs.map(p => {
                     return <ProgramsCard
                             key={p.id}
                             programs={p}
                             />
                 })
-            }
+             }
         </div>
       )
 }
