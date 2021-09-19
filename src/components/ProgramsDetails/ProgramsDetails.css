@@ -17,9 +17,10 @@
 } 
 
 div > span {
-    
     float: left;
-    
     width: 10%;
-    
+}
+
+.icon {
+    cursor: pointer;
 }

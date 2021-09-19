@@ -13,12 +13,12 @@ function ProgramsContainer() {
             .then((response) => response.json())
             .then((programsData) => setPrograms(programsData));
         } else {
-            fetch(`/profiles/${profile_id}`)
+            fetch(`users/1/profiles/${profile_id}`)
             .then((response) => response.json())
             .then((programsData) => setPrograms(programsData.programs));
         }
       }, []);
-    
+      
       return (
         <div className="programs-container">
             <h1>{profile ? "Full List of Movies and TV Shows - Profile: " + profile : "Full List of Movies and TV Shows"}</h1>

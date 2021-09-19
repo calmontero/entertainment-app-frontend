@@ -6,7 +6,6 @@ function ProfilesCard({ profiles, onDeleteProfile }) {
     const { id, name } = profiles;
     const [isSelected, setSelected] = useState(false);
     
-
     function handleSelectedClick(e) {
         let target = e.currentTarget;
         target.classList.toggle('selected')
@@ -22,7 +21,7 @@ function ProfilesCard({ profiles, onDeleteProfile }) {
     }
 
     function handleDeleteClick() {
-        fetch(`/profiles/${id}`, {
+        fetch(`users/1/profiles/${id}`, {
             method: "DELETE",
         }).then((r) => {
             if (r.ok) {

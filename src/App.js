@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Switch, Route } from "react-router-dom";
 import ProgramsContainer from './components/ProgramsContainer/ProgramsContainer';
 import Navigation from "./components/NavigationBar/NavigationBar";
@@ -8,6 +8,22 @@ import 'react-bootstrap/dist/react-bootstrap.min.js';
 import ProfilesContainer from "./components/ProfilesContainer/ProfilesContainer";
 
 function App() {
+  const [profiles, setProfiles] = useState([]);
+
+  //Get list of profiles
+  useEffect(() => {
+    fetch("/users/1/profiles")
+      .then((res) => res.json())
+      .then((profilesData) => {
+        setProfiles(profilesData);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => {
+      });
+}, []);
+
   return (
     <main className="app">
       <Navigation />
@@ -16,13 +32,13 @@ function App() {
           <Home />
         </Route>
         <Route exact path="/profiles">
-          <ProfilesContainer />
+          <ProfilesContainer profileData={profiles} />
         </Route>
         <Route exact path="/programs">
           <ProgramsContainer />
         </Route>
         <Route exact path="/programs/:id">
-          <ProgramsDetails />
+          <ProgramsDetails profileData={profiles} />
         </Route>
         {/* keep the "*" path at the end */}
         <Route path="*">

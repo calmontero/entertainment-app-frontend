@@ -1,32 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import ProfileForm from "../ProfileForm/ProfileForm";
 import ProfilesCard from "../ProfilesCard/ProfilesCard";
 
-function ProfilesContainer() {
-    const [profiles, setProfiles] = useState([]);
-
-    //Get list of profiles
-    useEffect(() => {
-        fetch("/profiles")
-          .then((res) => res.json())
-          .then((profilesData) => {
-            setProfiles(profilesData);
-          })
-          .catch((err) => {
-            console.log(err);
-          })
-          .finally(() => {
-          });
-    }, []);
-    
+function ProfilesContainer({ profileData }) {
+    const [profiles, setProfiles] = useState(profileData);
     function handleAddProfile(addedProfile) {
         setProfiles((profiles) => [...profiles, addedProfile]);
     }
 
     function handleDeleteProfile(deletedProfile) {
-        setProfiles((profiles) =>
-            profiles.filter((profile) => profile.id !== deletedProfile.id)
-        );
+        const profilesFilter = profiles.filter((p) => p.id !== deletedProfile);
+        setProfiles(profilesFilter);
     }
     
     return (

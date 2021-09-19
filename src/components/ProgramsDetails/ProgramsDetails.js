@@ -4,25 +4,26 @@ import ReviewsCard from "../ReviewsCard/ReviewsCard";
 import './ProgramsDetails.css'
 import Select from 'react-select';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Button from '@material-ui/core/Button';
 
-const Countries = [
-    { label: "Albania", value: 355 },
-    { label: "Argentina", value: 54 },
-    { label: "Austria", value: 43 },
-    { label: "Cocos Islands", value: 61 },
-    { label: "Kuwait", value: 965 },
-    { label: "Sweden", value: 46 },
-    { label: "Venezuela", value: 58 }
-  ];
-
-function ProgramsDetails() {
-    const [program, setProgram] = useState([]);
+function ProgramsDetails({ profileData }) {
+    const [program, setProgram] = useState({
+        data: {},
+        category: {},
+        genre: {},
+        rating: {}
+    });
     const [loading, setLoading] = useState(false);
     const params = useParams();
     const id = params.id;
+    const formData = {};
+    const profilesList = profileData.map((p) => (
+        {label: p.name, value: p.id}
+    ));
 
     function handleProfile(e) {
-        console.log(e.value);
+        formData.profile_id = e.value;
+        formData.program_id = id;
     }
 
     useEffect(() => {
@@ -31,7 +32,9 @@ function ProgramsDetails() {
           .then((res) => res.json())
           .then((programData) => {
 
-            setProgram(programData);
+            setProgram({data: programData, category: programData.category,
+                genre: programData.genre, rating: programData.rating
+            });
 
           })
           .catch((err) => {
@@ -41,8 +44,9 @@ function ProgramsDetails() {
             setLoading(false);
           });
     }, []);
-    
-    function CreateReview(review) {
+
+    function addReview(review) {
+        setLoading(true);
         fetch(`/reviews`, {
             method: "POST",
             body: JSON.stringify(review),
@@ -53,8 +57,25 @@ function ProgramsDetails() {
         })
         .then((response) => response.json())
         .then((reviewData) => {
-            const newReview = { ...program, reviews: [...program.reviews, reviewData] };
-            setProgram(newReview);
+            const newReview = { ...program, reviews: [...program.data.reviews, reviewData] };
+            setProgram({data: newReview});
+            
+        });
+        setLoading(false);
+    }
+
+    function addFavorite(e) {
+        e.preventDefault();
+        fetch(`/favorites`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(formData)
+          })
+        .then((r) => r.json())
+        .then(data => {
+            console.log('Success:', data);
         });
     }
 
@@ -67,41 +88,38 @@ function ProgramsDetails() {
             <div className="flex-child magenta" key={id} >
                 <img
                     className="program-img"
-                    src={program.image_url}
-                    alt={program.title}
+                    src={program.data.image_url}
+                    alt={program.data.title}
                     onError={(event) => event.target.style.display = 'none'}
                     style={{borderTopRightRadius: 20, borderBottomRightRadius: 20, borderBottomLeftRadius: 20, borderTopLeftRadius: 20}}
                 />
             </div>
   
             <div className="flex-child1 green">
-                <h1>{program.title}</h1>
-                <span>{program.year}</span> <span>{program.length} MIN</span>
+                <h1>{program.data.title}</h1>
+                <span>{program.data.year}</span> <span>{program.data.length} MIN</span>
                 <br />
-                <span>R</span>
+                <p>{program.rating.rating}</p>
+                <p>{program.data.description}</p>
+                <p>Director: {program.data.director}</p>
+                <p>Cast: {program.data.cast} </p>
+                <p>Category: {program.category.name} </p>
+                <p>Genre: {program.genre.name} </p>
+                <p>IMDB Link: {program.data.imdb_url} </p>
+                <p>Add to a Profile:</p> <span><Button type="submit"variant="outlined" color="secondary" onClick={addFavorite} >Add</Button></span>
                 <br />
-                <p>{program.description}</p>
-                <p>Director: {program.director}</p>
-                <p>Cast: {program.cast} </p>
-                
-                <p>Category: {} </p>
-                <p>Genre: {} </p>
-                <p>Rating: {} </p>
-                <p>IMDB Link: {program.imdb_url} </p>
-                <p>Add to a Profile:</p>
-               
+                <br />
                     <div className="col-md-3"></div>
                         <div className="col-md-6">
-                            <Select options={Countries} onChange={handleProfile} />
+                            <Select options={profilesList} onChange={handleProfile} />
                         </div>
                     <div className="col-md-4"></div>
-                
-                
+                    
             </div>
 
             <div className="reviews-container">
                 <h1>Reviews</h1>
-                <ReviewsCard reviews={program.reviews} id={id} onAddReview={CreateReview} />
+                <ReviewsCard reviews={program.data.reviews} id={id} onAddReview={addReview} />
             </div>
         </div>
     )

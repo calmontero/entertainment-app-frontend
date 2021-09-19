@@ -13,7 +13,7 @@ function ProfileForm({ onAddProfile }) {
 
     function handleSubmit(e) {
         e.preventDefault();
-        fetch(`/profiles`, {
+        fetch(`/users/1/profiles`, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
