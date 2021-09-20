@@ -7,6 +7,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Button from '@material-ui/core/Button';
 
 function ProgramsDetails({ profileData }) {
+    const profile = localStorage.getItem('Profile');
     const [program, setProgram] = useState({
         data: {},
         category: {},
@@ -106,15 +107,14 @@ function ProgramsDetails({ profileData }) {
                 <p>Category: {program.category.name} </p>
                 <p>Genre: {program.genre.name} </p>
                 <p>IMDB Link: {program.data.imdb_url} </p>
-                <p>Add to a Profile:</p> <span><Button type="submit"variant="outlined" color="secondary" onClick={addFavorite} >Add</Button></span>
+                <p>Add to a Profile:</p>  <span><Button type="submit"variant="outlined" color="secondary" onClick={addFavorite} disabled={profile ? true : false} >Add</Button></span>
                 <br />
                 <br />
                     <div className="col-md-3"></div>
                         <div className="col-md-6">
-                            <Select options={profilesList} onChange={handleProfile} />
+                            <Select options={profilesList} onChange={handleProfile} disabled={profile ? true : false} />
                         </div>
                     <div className="col-md-4"></div>
-                    
             </div>
 
             <div className="reviews-container">

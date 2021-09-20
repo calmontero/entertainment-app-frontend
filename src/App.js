@@ -6,9 +6,12 @@ import ProgramsDetails from "./components/ProgramsDetails/ProgramsDetails";
 import Home from "./components/Home/Home";
 import 'react-bootstrap/dist/react-bootstrap.min.js';
 import ProfilesContainer from "./components/ProfilesContainer/ProfilesContainer";
+import Login from "./components/Login/Login";
+import Header from "./components/Header/Header";
 
 function App() {
   const [profiles, setProfiles] = useState([]);
+  const [user, setUser] = useState(null);
 
   //Get list of profiles
   useEffect(() => {
@@ -22,14 +25,34 @@ function App() {
       })
       .finally(() => {
       });
-}, []);
+  }, []);
+
+  useEffect(() => {
+    fetch("/me").then((response) => {
+      if (response.ok) {
+        response.json().then((user) => setUser(user));
+      }
+    });
+  }, []);
+
+  function handleLogin(user) {
+    setUser(user);
+  }
+
+  function handleLogout() {
+    setUser(null);
+  }
 
   return (
-    <main className="app">
-      <Navigation />
+    <main className="app" >
+      <Navigation onLogout={handleLogout} />
+      <Header user={user} />
       <Switch>
-        <Route exact path="/">
+        <Route exact path="/" >
           <Home />
+        </Route>
+        <Route exact path="/login">
+          <Login onLogin={handleLogin} />
         </Route>
         <Route exact path="/profiles">
           <ProfilesContainer profileData={profiles} />

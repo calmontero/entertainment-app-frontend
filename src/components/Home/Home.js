@@ -1,11 +1,13 @@
 import React from 'react';
-//import { Link } from 'react-router-dom';
-//import "./Home.css";
+import "./Home.css";
+import Typography from '@material-ui/core/Typography';
 
 function Home() {
     return (
       <div className="home-container">
-        <h1 className="home-heading">Project 4. Ruby and Rails - React App</h1>
+        <Typography variant="h2" component="h2" gutterBottom>
+          Welcome to Project 4. Ruby and Rails - React App
+        </Typography>
       </div>
     )
   }
