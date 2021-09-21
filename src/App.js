@@ -15,7 +15,12 @@ function App() {
 
   //Get list of profiles
   useEffect(() => {
-    fetch("/users/1/profiles")
+    fetch("/users/1/profiles", {
+      headers : { 
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+       }
+    })
       .then((res) => res.json())
       .then((profilesData) => {
         setProfiles(profilesData);
@@ -43,6 +48,15 @@ function App() {
     setUser(null);
   }
 
+  function handleAddProfile(addedProfile) {
+    setProfiles((profiles) => [...profiles, addedProfile]);
+  }
+
+  function handleDeleteProfile(onDeletedProfile) {
+    const profilesFilter = profiles.filter((p) => p.id !== onDeletedProfile);
+    setProfiles(profilesFilter);
+  }
+
   return (
     <main className="app" >
       <Navigation onLogout={handleLogout} />
@@ -55,7 +69,7 @@ function App() {
           <Login onLogin={handleLogin} />
         </Route>
         <Route exact path="/profiles">
-          <ProfilesContainer profileData={profiles} />
+          <ProfilesContainer profileData={profiles} onAddProfile={handleAddProfile} onDeletedProfile={handleDeleteProfile} />
         </Route>
         <Route exact path="/programs">
           <ProgramsContainer />

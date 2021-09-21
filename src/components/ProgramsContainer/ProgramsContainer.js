@@ -9,11 +9,21 @@ function ProgramsContainer() {
     //Get list of movies and tv shows
     useEffect(() => {
         if (!profile) {
-            fetch("/programs")
+            fetch("/programs", {
+                headers : { 
+                  'Content-Type': 'application/json',
+                  'Accept': 'application/json'
+                 }
+              })
             .then((response) => response.json())
             .then((programsData) => setPrograms(programsData));
         } else {
-            fetch(`users/1/profiles/${profile_id}`)
+            fetch(`users/1/profiles/${profile_id}`, {
+                headers : { 
+                  'Content-Type': 'application/json',
+                  'Accept': 'application/json'
+                 }
+              })
             .then((response) => response.json())
             .then((programsData) => setPrograms(programsData.programs));
         }

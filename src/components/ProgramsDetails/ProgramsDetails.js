@@ -29,7 +29,12 @@ function ProgramsDetails({ profileData }) {
 
     useEffect(() => {
         setLoading(true);
-        fetch(`/programs/${id}`)
+        fetch(`/programs/${id}`, {
+            headers : { 
+              'Content-Type': 'application/json',
+              'Accept': 'application/json'
+             }
+          })
           .then((res) => res.json())
           .then((programData) => {
 

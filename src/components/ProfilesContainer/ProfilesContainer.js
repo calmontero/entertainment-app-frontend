@@ -2,15 +2,17 @@ import React, { useState } from "react";
 import ProfileForm from "../ProfileForm/ProfileForm";
 import ProfilesCard from "../ProfilesCard/ProfilesCard";
 
-function ProfilesContainer({ profileData }) {
+function ProfilesContainer({ profileData, onAddProfile, onDeletedProfile }) {
     const [profiles, setProfiles] = useState(profileData);
     function handleAddProfile(addedProfile) {
         setProfiles((profiles) => [...profiles, addedProfile]);
+        onAddProfile(addedProfile);
     }
 
     function handleDeleteProfile(deletedProfile) {
         const profilesFilter = profiles.filter((p) => p.id !== deletedProfile);
         setProfiles(profilesFilter);
+        onDeletedProfile(deletedProfile);
     }
     
     return (
