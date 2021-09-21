@@ -112,7 +112,7 @@ function ProgramsDetails({ profileData }) {
                 <p>Cast: {program.data.cast} </p>
                 <p>Category: {program.category.name} </p>
                 <p>Genre: {program.genre.name} </p>
-                <p>IMDB Link: {program.data.imdb_url} </p>
+                <p>IMDB Link: <a href={program.data.imdb_url} target="_blank" > {program.data.imdb_url} </a></p>
                 <p>Add to a Profile:</p>  <span><Button type="submit"variant="outlined" color="secondary" onClick={addFavorite} disabled={profile ? true : false} >Add</Button></span>
                 <br />
                 <br />
