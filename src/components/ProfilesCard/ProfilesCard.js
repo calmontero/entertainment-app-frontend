@@ -22,7 +22,7 @@ function ProfilesCard({ profiles, onDeleteProfile }) {
     }
 
     function handleDeleteClick() {
-        fetch(BASE_URL + `users/1/profiles/${id}`, {
+        fetch(BASE_URL + `/users/1/profiles/${id}`, {
             method: "DELETE",
         }).then((r) => {
             if (r.ok) {
