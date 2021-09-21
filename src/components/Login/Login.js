@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useHistory } from 'react-router-dom';
+//import { BASE_URL } from "./constraints/index";
+const BASE_URL = 'https://calm-headland-73614.herokuapp.com';
 
 function Login({ onLogin }) {
   const [username, setUsername] = useState("");
@@ -7,7 +9,7 @@ function Login({ onLogin }) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    fetch("/login", {
+    fetch(BASE_URL + "/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

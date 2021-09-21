@@ -5,6 +5,7 @@ import './ProgramsDetails.css'
 import Select from 'react-select';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Button from '@material-ui/core/Button';
+const BASE_URL = 'https://calm-headland-73614.herokuapp.com';
 
 function ProgramsDetails({ profileData }) {
     const profile = localStorage.getItem('Profile');
@@ -29,7 +30,7 @@ function ProgramsDetails({ profileData }) {
 
     useEffect(() => {
         setLoading(true);
-        fetch(`/programs/${id}`, {
+        fetch(BASE_URL + `/programs/${id}`, {
             headers : { 
               'Content-Type': 'application/json',
               'Accept': 'application/json'
@@ -53,7 +54,7 @@ function ProgramsDetails({ profileData }) {
 
     function addReview(review) {
         setLoading(true);
-        fetch(`/reviews`, {
+        fetch(BASE_URL + `/reviews`, {
             method: "POST",
             body: JSON.stringify(review),
             headers: {
@@ -72,7 +73,7 @@ function ProgramsDetails({ profileData }) {
 
     function addFavorite(e) {
         e.preventDefault();
-        fetch(`/favorites`, {
+        fetch(BASE_URL + `/favorites`, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",

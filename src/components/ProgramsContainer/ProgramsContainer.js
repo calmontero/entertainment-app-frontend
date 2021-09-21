@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import ProgramsCard from "../ProgramsCard/ProgramsCard";
+const BASE_URL = 'https://calm-headland-73614.herokuapp.com';
 
 function ProgramsContainer() {
     const [programs, setPrograms] = useState([]);
@@ -9,7 +10,7 @@ function ProgramsContainer() {
     //Get list of movies and tv shows
     useEffect(() => {
         if (!profile) {
-            fetch("/programs", {
+            fetch(BASE_URL + "/programs", {
                 headers : { 
                   'Content-Type': 'application/json',
                   'Accept': 'application/json'
@@ -18,7 +19,7 @@ function ProgramsContainer() {
             .then((response) => response.json())
             .then((programsData) => setPrograms(programsData));
         } else {
-            fetch(`users/1/profiles/${profile_id}`, {
+            fetch(BASE_URL + `/users/1/profiles/${profile_id}`, {
                 headers : { 
                   'Content-Type': 'application/json',
                   'Accept': 'application/json'

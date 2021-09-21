@@ -1,6 +1,7 @@
 import React, { useState} from 'react';
 import "./ProfilesCard.css";
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
+const BASE_URL = 'https://calm-headland-73614.herokuapp.com';
 
 function ProfilesCard({ profiles, onDeleteProfile }) {
     const { id, name } = profiles;
@@ -21,7 +22,7 @@ function ProfilesCard({ profiles, onDeleteProfile }) {
     }
 
     function handleDeleteClick() {
-        fetch(`users/1/profiles/${id}`, {
+        fetch(BASE_URL + `users/1/profiles/${id}`, {
             method: "DELETE",
         }).then((r) => {
             if (r.ok) {

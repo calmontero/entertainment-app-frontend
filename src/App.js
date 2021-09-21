@@ -8,17 +8,20 @@ import 'react-bootstrap/dist/react-bootstrap.min.js';
 import ProfilesContainer from "./components/ProfilesContainer/ProfilesContainer";
 import Login from "./components/Login/Login";
 import Header from "./components/Header/Header";
+import { BASE_URL } from "./constraints/index";
 
 function App() {
   const [profiles, setProfiles] = useState([]);
   const [user, setUser] = useState(null);
+  console.log(BASE_URL);
 
   //Get list of profiles
   useEffect(() => {
-    fetch("/users/1/profiles", {
+    fetch(BASE_URL + "/users/1/profiles", {
       headers : { 
         'Content-Type': 'application/json',
-        'Accept': 'application/json'
+        'Accept': 'application/json',
+        'Access-Control-Allow-Origin': '*'
        }
     })
       .then((res) => res.json())
@@ -33,7 +36,7 @@ function App() {
   }, []);
 
   useEffect(() => {
-    fetch("/me").then((response) => {
+    fetch(BASE_URL + "/me").then((response) => {
       if (response.ok) {
         response.json().then((user) => setUser(user));
       }

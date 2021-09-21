@@ -3,10 +3,11 @@ import React from 'react'
 import { Navbar, Nav, Form, Button, ButtonGroup } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { Link } from 'react-router-dom';
+const BASE_URL = 'https://calm-headland-73614.herokuapp.com';
 
 function Navigation({ onLogout }) {
   function handleLogout() {
-    fetch("/logout", {
+    fetch(BASE_URL + "/logout", {
       method: "DELETE",
     }).then(() => onLogout());
   }

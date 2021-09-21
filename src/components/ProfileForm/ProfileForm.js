@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Input from '@material-ui/core/Input';
 import Button from '@material-ui/core/Button';
+const BASE_URL = 'https://calm-headland-73614.herokuapp.com';
 
 const initialState = {
     name: '',
@@ -13,7 +14,7 @@ function ProfileForm({ onAddProfile }) {
 
     function handleSubmit(e) {
         e.preventDefault();
-        fetch(`/users/1/profiles`, {
+        fetch(BASE_URL + `/users/1/profiles`, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
