@@ -1,7 +1,7 @@
 import React, { useState} from 'react';
 import "./ProfilesCard.css";
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
-const BASE_URL = 'https://calm-headland-73614.herokuapp.com';
+import { BASE_URL } from "../../constraints";
 
 function ProfilesCard({ profiles, onDeleteProfile }) {
     const { id, name } = profiles;

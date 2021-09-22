@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Input from '@material-ui/core/Input';
 import Button from '@material-ui/core/Button';
-const BASE_URL = 'https://calm-headland-73614.herokuapp.com';
+import { BASE_URL } from "../../constraints";
 
 const initialState = {
     name: '',

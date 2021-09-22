@@ -5,7 +5,7 @@ import './ProgramsDetails.css'
 import Select from 'react-select';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Button from '@material-ui/core/Button';
-const BASE_URL = 'https://calm-headland-73614.herokuapp.com';
+import { BASE_URL } from "../../constraints";
 
 function ProgramsDetails({ profileData }) {
     const profile = localStorage.getItem('Profile');
@@ -38,7 +38,7 @@ function ProgramsDetails({ profileData }) {
           })
           .then((res) => res.json())
           .then((programData) => {
-
+            
             setProgram({data: programData, category: programData.category,
                 genre: programData.genre, rating: programData.rating
             });
@@ -63,9 +63,8 @@ function ProgramsDetails({ profileData }) {
             },
         })
         .then((response) => response.json())
-        .then((reviewData) => {
-            const newReview = { ...program, reviews: [...program.data.reviews, reviewData] };
-            setProgram({data: newReview});
+        .then((newReview) => {
+            setProgram({ ...program , data: {...program.data, reviews: [...program.data.reviews, newReview] } });
             
         });
         setLoading(false);

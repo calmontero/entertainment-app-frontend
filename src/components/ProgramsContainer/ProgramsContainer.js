@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import ProgramsCard from "../ProgramsCard/ProgramsCard";
-const BASE_URL = 'https://calm-headland-73614.herokuapp.com';
+import { BASE_URL } from "../../constraints";
 
 function ProgramsContainer() {
     const [programs, setPrograms] = useState([]);

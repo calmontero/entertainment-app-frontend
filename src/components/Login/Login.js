@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useHistory } from 'react-router-dom';
-//import { BASE_URL } from "./constraints/index";
-const BASE_URL = 'https://calm-headland-73614.herokuapp.com';
+import { BASE_URL } from "../../constraints";
 
 function Login({ onLogin }) {
   const [username, setUsername] = useState("");

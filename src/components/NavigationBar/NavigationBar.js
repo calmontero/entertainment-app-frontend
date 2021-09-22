@@ -3,7 +3,7 @@ import React from 'react'
 import { Navbar, Nav, Form, Button, ButtonGroup } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { Link } from 'react-router-dom';
-const BASE_URL = 'https://calm-headland-73614.herokuapp.com';
+import { BASE_URL } from "../../constraints";
 
 function Navigation({ onLogout }) {
   function handleLogout() {
